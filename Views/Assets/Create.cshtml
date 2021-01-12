@@ -19,9 +19,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="AssetPurchaseDate" class="control-label"></label>
-                <input asp-for="AssetPurchaseDate" type="date" asp-format="{0:yyyy-mm-dd}" class="form-control" />
+                <input asp-for="AssetPurchaseDate" type="date" asp-format="{0:yyyy-mm-dd}"  class="form-control" />
                 <span asp-validation-for="AssetPurchaseDate" class="text-danger"></span>
             </div>
+            <!--
             <div class="form-group">
                 <label asp-for="AssetExpirationDate" class="control-label"></label>
                 <input asp-for="AssetExpirationDate" type="date" asp-format="{0:yyyy-mm-dd}" class="form-control" />
@@ -32,9 +33,10 @@
                 <input asp-for="AssetWarningDate" type="date" asp-format="{0:yyyy-mm-dd}" class="form-control" />
                 <span asp-validation-for="AssetWarningDate" class="text-danger"></span>
             </div>
+             -->
             <div class="form-group">
                 <label asp-for="AssetPrice" class="control-label"></label>
-                <input asp-for="AssetPrice" class="form-control" />
+                <input asp-for="AssetPrice" type="text" class="form-control" />
                 <span asp-validation-for="AssetPrice" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -44,11 +46,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="OfficeId" class="control-label"></label>
-                <select asp-for="OfficeId" class ="form-control" asp-items="ViewBag.OfficeId"></select>
+                <select asp-for="OfficeId" class="form-control" asp-items="ViewBag.OfficeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

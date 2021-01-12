@@ -85,7 +85,7 @@ namespace EFCAssets.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryEOLMonths")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryEOLMonths,CategoryActive")] Category category)
         {
             if (id != category.CategoryId)
             {
@@ -139,7 +139,10 @@ namespace EFCAssets.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            category.CategoryActive = false;
+            // Set inactive instead of delete
+            //_context.Categories.Remove(category);
+            _context.Update(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

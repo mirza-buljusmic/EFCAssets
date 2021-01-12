@@ -4,14 +4,16 @@ using EFCAssets.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCAssets.Migrations
 {
     [DbContext(typeof(AssetContext))]
-    partial class AssetContextModelSnapshot : ModelSnapshot
+    [Migration("20210112113753_TryingToFixDecimalInput2")]
+    partial class TryingToFixDecimalInput2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +37,8 @@ namespace EFCAssets.Migrations
                     b.Property<string>("AssetName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AssetPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("AssetPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("AssetPurchaseDate")
                         .HasColumnType("datetime2");
@@ -65,9 +67,6 @@ namespace EFCAssets.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<bool>("CategoryActive")
-                        .HasColumnType("bit");
 
                     b.Property<int>("CategoryEOLMonths")
                         .HasColumnType("int");
@@ -107,9 +106,6 @@ namespace EFCAssets.Migrations
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("OfficeActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("OfficeCountry")
                         .HasColumnType("nvarchar(max)");

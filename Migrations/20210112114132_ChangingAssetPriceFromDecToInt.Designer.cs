@@ -4,14 +4,16 @@ using EFCAssets.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCAssets.Migrations
 {
     [DbContext(typeof(AssetContext))]
-    partial class AssetContextModelSnapshot : ModelSnapshot
+    [Migration("20210112114132_ChangingAssetPriceFromDecToInt")]
+    partial class ChangingAssetPriceFromDecToInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,9 +68,6 @@ namespace EFCAssets.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("CategoryActive")
-                        .HasColumnType("bit");
-
                     b.Property<int>("CategoryEOLMonths")
                         .HasColumnType("int");
 
@@ -107,9 +106,6 @@ namespace EFCAssets.Migrations
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("OfficeActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("OfficeCountry")
                         .HasColumnType("nvarchar(max)");

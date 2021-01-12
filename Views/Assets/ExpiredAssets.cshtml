@@ -2,10 +2,10 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Report";
 }
 
-<h1>Assets</h1>
+<h1>Expired Assets</h1>
 
 
 <link href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" rel="stylesheet">
@@ -13,11 +13,13 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Reports">Back to reports page</a>
 
 </p>
-<input type="text" id="searchName" onkeyup="searchName()" placeholder="Search name...">
-<table class="table sortable" id="table" data-virtual-scroll="true" data-height="400">
+<input type="text" id="searchOffice" onkeyup="searchOffice()" placeholder="Search office...">
+<input type="text" id="searchCategory" onkeyup="searchCategory()" placeholder="Search category...">
+
+<table  id="table" data-virtual-scroll="true" data-height="460" data-toggle="table" data-search="true" data-show-columns="true" data-buttons-align="left" cellpadding="5px">
     <thead>
         <tr>
             <th>
@@ -53,10 +55,8 @@
     <tbody>
         @foreach (var item in Model)
         {
-            //Show only active assets
-            if (item.AssetActive)
-            {
-                int daysLeft = (item.AssetExpirationDate - DateTime.Today).Days;
+            double sumOfExpenses = 0;
+            int daysLeft = (item.AssetExpirationDate - DateTime.Today).Days;
             <tr class="@(daysLeft < 1 ? "text-danger" : "")">
                 <td>
                     @Html.DisplayFor(modelItem => item.AssetName)
@@ -72,7 +72,7 @@
                 <td>
                     @item.AssetWarningDate.ToShortDateString()
                 </td>
-                <td>
+                <td class="text-right">
                     @Html.DisplayFor(modelItem => item.AssetPrice)
                 </td>
 
@@ -85,13 +85,23 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AssetActive)
                 </td>
-                <td>
+
+                @*<td>
                     <a asp-action="Edit" asp-route-id="@item.AssetId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.AssetId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.AssetId">Delete</a>
-                </td>
+                </td>*@
             </tr>
-            }
         }
     </tbody>
+    <tfoot>
+        <tr><td></td></tr>
+        <tr>
+            <td>Cost of replacing</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-right">@ViewData["sumPrice"]</td>
+        </tr>
+    </tfoot>
 </table>

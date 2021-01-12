@@ -17,8 +17,10 @@ namespace EFCAssets.Models
         public DateTime AssetExpirationDate { get; set; }
         [Display(Name ="Warning Date")]
         public DateTime AssetWarningDate { get; set; }
+        
+        [Required(ErrorMessage = "Price is required.")]
         [Display(Name ="Price")]
-        public decimal AssetPrice { get; set; }
+        public int AssetPrice { get; set; }
         [Display(Name ="Active")]
         public bool AssetActive { get; set; }
         public int OfficeId { get; set; }

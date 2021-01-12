@@ -1,0 +1,98 @@
+﻿@model IEnumerable<EFCAssets.Models.Asset>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Inactive assets</h1>
+
+
+<link href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+
+<p>
+    <a asp-controller="Home" asp-action="Admin">Back to admin page</a>
+
+</p>
+
+<table class="table sortable" id="table" data-virtual-scroll="true" data-height="400">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetPurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetExpirationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetWarningDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetPrice)
+            </th>
+
+            <th>
+
+
+                @Html.DisplayNameFor(model => model.Office)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (!item.AssetActive)
+            {
+
+
+                int daysLeft = (item.AssetExpirationDate - DateTime.Today).Days;
+                <tr class="@(daysLeft < 1 ? "text-danger" : "")">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetName)
+                    </td>
+                    <td>
+                     @item.AssetPurchaseDate.ToShortDateString()
+                    </td>
+
+
+                    <td>
+                        @item.AssetExpirationDate.ToShortDateString()
+                    </td>
+                    <td>
+                     @item.AssetWarningDate.ToShortDateString()
+                    </td>
+                    <td>
+                     @Html.DisplayFor(modelItem => item.AssetPrice)
+                    </td>
+
+                    <td>
+                         @Html.DisplayFor(modelItem => item.Office.OfficeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetActive)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.AssetId">Edit</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.AssetId">Details</a>*@ |
+                        @*<a asp-action="Delete" asp-route-id="@item.AssetId">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
