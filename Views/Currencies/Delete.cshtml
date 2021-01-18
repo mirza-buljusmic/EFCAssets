@@ -4,11 +4,10 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<span class="display-4 text-info">Deactivate</span><p></p>
 
-<h3>Are you sure you want to delete this?</h3>
+<span>Are you sure you want to deactivate <b>@Model.CurrencyName:</b> @Model.CurrencyComment?</span>
 <div>
-    <h4>Currency</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,11 +22,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CurrensyToUSD)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CurrencyComment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrencyComment)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Deactivate" class="btn btn-danger" /> |
+        <a asp-action="Index" class="text-info">Back to List</a>
     </form>
 </div>

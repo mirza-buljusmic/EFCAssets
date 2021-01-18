@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Inactive assets</h1>
+<span>deactivated </span><span class="display-4 text-info">Assets</span>
 
 
 <link href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
 
 <p>
-    <a asp-controller="Home" asp-action="Admin">Back to admin page</a>
+    <a asp-controller="Home" asp-action="Admin" class="text-info">Back to admin page</a>
 
 </p>
 
@@ -87,9 +87,9 @@
                         @Html.DisplayFor(modelItem => item.AssetActive)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.AssetId">Edit</a> |
-                        @*<a asp-action="Details" asp-route-id="@item.AssetId">Details</a>*@ |
-                        @*<a asp-action="Delete" asp-route-id="@item.AssetId">Delete</a>*@
+                        @*<a asp-action="Edit" asp-route-id="@item.AssetId" class="text-info">Edit |</a>
+                        <a asp-action="Details" asp-route-id="@item.AssetId">Details |</a>*@
+                        <a asp-action="ActivateAsset" asp-route-id="@item.AssetId" class="text-info">Activate</a>
                     </td>
                 </tr>
             }

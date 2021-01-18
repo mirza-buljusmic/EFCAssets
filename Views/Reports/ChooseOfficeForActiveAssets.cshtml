@@ -1,0 +1,31 @@
+﻿
+@model EFCAssets.Models.Office
+
+
+
+
+
+
+<span>active assets for</span><span style="" class="display-4 text-info">Office</span>
+
+
+<p>
+    <a asp-action="Index" class="text-info">Back to reports page</a>
+
+</p>
+
+@*<div>
+        <label asp-for="OfficeId" class="control-label"></label>
+        <select asp-for="OfficeId" class="form-control" asp-items="ViewBag.OfficeId"></select>
+    </div>*@
+
+<div>
+    <form asp-action="OfcActiveLocalCurrency" method="post" class="special-form">
+        <label for="id">Select office</label>
+        <select asp-for="OfficeId" asp-items="ViewBag.OfficeId" class="form-control" id="id" name="id"></select>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="View report" class="btn btn-info" />
+        </div>
+    </form>
+</div>

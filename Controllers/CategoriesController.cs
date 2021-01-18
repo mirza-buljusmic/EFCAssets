@@ -21,7 +21,8 @@ namespace EFCAssets.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            // Show only active Categories
+            return View(await _context.Categories.Where(a => a.CategoryActive == true).ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -34,6 +35,7 @@ namespace EFCAssets.Controllers
 
             var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
+            ViewData["catName"] = category.CategoryName;
             if (category == null)
             {
                 return NotFound();
@@ -53,7 +55,7 @@ namespace EFCAssets.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryEOLMonths")] Category category)
+        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryEOLMonths,CategoryActive,CategoryComment")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +87,7 @@ namespace EFCAssets.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryEOLMonths,CategoryActive")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryEOLMonths,CategoryActive,CategoryComment")] Category category)
         {
             if (id != category.CategoryId)
             {

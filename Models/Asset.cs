@@ -12,6 +12,7 @@ namespace EFCAssets.Models
         [Display(Name ="Asset Name")]
         public string AssetName { get; set; }
         [Display(Name ="Purchase Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime AssetPurchaseDate { get; set; }
         [Display(Name ="Expiration Date")]
         public DateTime AssetExpirationDate { get; set; }
@@ -20,7 +21,7 @@ namespace EFCAssets.Models
         
         [Required(ErrorMessage = "Price is required.")]
         [Display(Name ="Price")]
-        public int AssetPrice { get; set; }
+        public decimal AssetPrice { get; set; }
         [Display(Name ="Active")]
         public bool AssetActive { get; set; }
         public int OfficeId { get; set; }

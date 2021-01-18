@@ -12,6 +12,7 @@ namespace EFCAssets.Controllers
     public class CurrenciesController : Controller
     {
         private readonly AssetContext _context;
+        
 
         public CurrenciesController(AssetContext context)
         {
@@ -21,7 +22,7 @@ namespace EFCAssets.Controllers
         // GET: Currencies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Currencies.ToListAsync());
+            return View(await _context.Currencies.Where(a => a.CurrencyActive == true).ToListAsync());
         }
 
         // GET: Currencies/Details/5
@@ -34,6 +35,7 @@ namespace EFCAssets.Controllers
 
             var currency = await _context.Currencies
                 .FirstOrDefaultAsync(m => m.Id == id);
+            ViewData["cName"] = currency.CurrencyName;
             if (currency == null)
             {
                 return NotFound();
@@ -45,6 +47,7 @@ namespace EFCAssets.Controllers
         // GET: Currencies/Create
         public IActionResult Create()
         {
+            ViewData["decimalMessage"] = "Exchange rate (in cents ex: 880 = 8,80 | 90 = 0,90)";
             return View();
         }
 
@@ -53,10 +56,11 @@ namespace EFCAssets.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CurrencyName,CurrensyToUSD")] Currency currency)
+        public async Task<IActionResult> Create([Bind("Id,CurrencyName,CurrensyToUSD,CurrencyComment")] Currency currency)
         {
             if (ModelState.IsValid)
             {
+                currency.CurrensyToUSD = currency.CurrensyToUSD / 100;
                 _context.Add(currency);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -67,6 +71,7 @@ namespace EFCAssets.Controllers
         // GET: Currencies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["decimalMessage"] = "Exchange rate (in cents ex: 880 = 8,80 | 90 = 0,90)";
             if (id == null)
             {
                 return NotFound();
@@ -85,7 +90,7 @@ namespace EFCAssets.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CurrencyName,CurrensyToUSD")] Currency currency)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CurrencyName,CurrensyToUSD,CurrencyComment")] Currency currency)
         {
             if (id != currency.Id)
             {
@@ -96,6 +101,7 @@ namespace EFCAssets.Controllers
             {
                 try
                 {
+                    currency.CurrensyToUSD /= 100;
                     _context.Update(currency);
                     await _context.SaveChangesAsync();
                 }
@@ -139,7 +145,10 @@ namespace EFCAssets.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var currency = await _context.Currencies.FindAsync(id);
-            _context.Currencies.Remove(currency);
+            // Deactivate instead of delete
+            currency.CurrencyActive = false;
+            _context.Update(currency);
+            //_context.Currencies.Remove(currency);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

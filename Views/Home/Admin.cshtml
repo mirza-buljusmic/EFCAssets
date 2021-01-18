@@ -4,7 +4,7 @@
 @{
 }
 <div class="text-center">
-    <h3 class="display-4">Administrative functions</h3>
+    <span class="display-4 text-info">Administrative functions</span>
     <img src="/Images/matrix_1280.jpg" alt="Reports." height="320" />
 </div>
  <br />
@@ -16,17 +16,19 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="AdminRecalc">Recalculate expiration dates</a>
         </li>
         <li>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="InactiveAssets">Show inactive assets</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="InactiveAssets">Deactivated assets</a>
         </li>
         <li>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="InactiveAssets">*Show inactive categories</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="DeactivatedCurrencies">Deactivated currencies</a>
         </li>
         <li>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="InactiveAssets">*Show inactive offices</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="DeactivatedCategories">Deactivated categories</a>
         </li>
+
         <li>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Assets" asp-action="InactiveAssets">*Show inactive currencies</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="DeactivatedOffices">Deactivated offices</a>
         </li>
+
         <li>..</li>
     </ul>
 </div>

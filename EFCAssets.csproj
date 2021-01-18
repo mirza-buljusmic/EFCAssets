@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\IMG_1595_6_7.jpg" />
     <None Include="wwwroot\Images\IMG_7838-Edit.jpg" />
-    <None Include="wwwroot\Images\IMG_9785.jpg" />
   </ItemGroup>
 
   <ItemGroup>

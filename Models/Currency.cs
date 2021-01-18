@@ -14,7 +14,11 @@ namespace EFCAssets.Models
         public string CurrencyName { get; set; }
         [Display(Name ="Exchange rate")]
         public decimal CurrensyToUSD { get; set; }
-
+        [StringLength (50)]
+        [Display(Name ="Comment")]
+        public string CurrencyComment { get; set; }
+        [Display(Name ="Active")]
+        public bool CurrencyActive { get; set; }
         public ICollection<Office> Offices { get; set; }
     }
 }

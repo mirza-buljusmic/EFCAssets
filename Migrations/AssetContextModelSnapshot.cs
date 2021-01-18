@@ -35,8 +35,8 @@ namespace EFCAssets.Migrations
                     b.Property<string>("AssetName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AssetPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("AssetPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("AssetPurchaseDate")
                         .HasColumnType("datetime2");
@@ -69,6 +69,10 @@ namespace EFCAssets.Migrations
                     b.Property<bool>("CategoryActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CategoryComment")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("CategoryEOLMonths")
                         .HasColumnType("int");
 
@@ -86,6 +90,13 @@ namespace EFCAssets.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<bool>("CurrencyActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurrencyComment")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CurrencyName")
                         .HasColumnType("nvarchar(max)");

@@ -21,7 +21,7 @@ namespace EFCAssets.Controllers
         // GET: Offices
         public async Task<IActionResult> Index()
         {
-            var assetContext = _context.Offices.Include(o => o.Currency);
+            var assetContext = _context.Offices.Include(o => o.Currency).Where(a=>a.OfficeActive == true);
             return View(await assetContext.ToListAsync());
         }
 
@@ -148,7 +148,10 @@ namespace EFCAssets.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var office = await _context.Offices.FindAsync(id);
-            _context.Offices.Remove(office);
+            //_context.Offices.Remove(office);
+            // Deactivate instead of Delete
+            office.OfficeActive = false;
+            _context.Update(office);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

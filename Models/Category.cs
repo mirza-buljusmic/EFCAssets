@@ -15,6 +15,9 @@ namespace EFCAssets.Models
         public int CategoryEOLMonths { get; set; }
         [Display(Name ="Active")]
         public bool CategoryActive { get; set; }
+        [StringLength(50)]
+        [Display(Name ="Comment")]
+        public string CategoryComment { get; set; }
 
         public ICollection<Asset> Assets { get; set; }
     }

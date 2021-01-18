@@ -1,0 +1,127 @@
+﻿@model IEnumerable<EFCAssets.Models.Asset>
+
+
+@{
+    ViewData["Title"] = "Active assets for office in local currency";
+}
+
+<span>active assets for </span><span style="" class="display-4 text-info"> @ViewData["office"]</span>
+
+
+<p>
+    <a asp-action="ChooseOfficeForActiveAssets" class="text-info">Back to selecting office</a>
+
+</p>
+
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetPurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetExpirationDate)
+            </th>
+            <th>
+                USD
+            </th>
+            <th>
+                @ViewData["currency"]
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            decimal totalCostLocalCurrency = 0;
+            decimal totalCostUSD = 0;
+            decimal totalCostCategory = 0;
+            int counter = 0;
+            int category = 0;
+        }
+        @foreach (var item in Model)
+        {
+            //keeps track of category for total sum
+            if (counter == 0)
+            {
+                category = item.CategoryId;
+            }
+
+            var localPrice = item.AssetPrice * item.Office.Currency.CurrensyToUSD;
+            totalCostLocalCurrency += localPrice;
+            totalCostUSD += item.AssetPrice;
+            if (category == item.CategoryId)
+            {
+                totalCostCategory += localPrice;
+                <tr>
+                    <td>@item.AssetName</td>
+
+                    <td>@item.AssetPurchaseDate.ToShortDateString()</td>
+
+
+                    <td>@item.AssetExpirationDate.ToShortDateString()</td>
+
+                    <td>@item.AssetPrice</td>
+                    <td>@String.Format("{0:0.00}", localPrice) </td>
+                    <td>@item.Category.CategoryName</td>
+                </tr>
+                counter++;
+            }
+            else
+            {
+                // Display sum for category
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sum</td>
+                    <td>@String.Format("{0:0.00}", totalCostCategory)</td>
+                    <td></td>
+                </tr>
+                // restart sum for new category
+                totalCostCategory = localPrice;
+
+                //display row for new category
+                <tr>
+                    <td>@item.AssetName</td>
+
+                    <td>@item.AssetPurchaseDate.ToShortDateString()</td>
+
+
+                    <td>@item.AssetExpirationDate.ToShortDateString()</td>
+
+                    <td>@item.AssetPrice</td>
+                    <td>@String.Format("{0:0.00}", localPrice) </td>
+                    <td>@item.Category.CategoryName</td>
+                </tr>
+                counter = 0;
+            }
+        }
+        <!-- Display sum for last category-->
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Sum</td>
+            <td>@String.Format("{0:0.00}", totalCostCategory)</td>
+            <td></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>@String.Format("{0:0.00}", totalCostUSD)</td>
+            <td>@String.Format("{0:0.00}", totalCostLocalCurrency)</td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+</table>

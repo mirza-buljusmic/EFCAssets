@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Documentation";
+}
+
+
+<div class="text-left float-right">
+   
+</div>
+<h1 class="align-text-bottom display-4 text-info">Documentation</h1>
+
+    <input type="text" id="searchText" onkeyup="searchText()" placeholder="Search text...">
+    <div>
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td class="font-weight-bold">Scope</td>
+                    <td>The scope of thiss web-application is to have a functional CRUD environment against a SQL-server using <i>ASP.Net CORE with Entity Framework.</i> Basic functionality and basic reporting, and administrative functions. Time allowing, some front end and cosmetic work will be done. A decision has to made regarding the purchase price field, as .NET Core has trouble validating decimal numbers with comma as decimal separator, if the field should be left as decimal (hence making it troublesome to enter decimal values), or simply made to an <i>integer</i> field.
+                        <br /><br />
+                        <ul><b>TO-DO (future functionality)</b>
+                            <li>Make decimal numbers with comma as decimal separator work (cannot make the .net core validation to work)</li><br />
+                            <li>Make the display of dates to ISO standard, .net Core shows only en-us standard</li><br />
+                            <li>The whole documentation could be made database driven</li><br />
+                            <li>Make the tables of data sortable</li><br />
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="font-weight-bold">Assets</td>
+                    <td>The functionality of the Assets page is simple CRUD.<br />Upon creating a new asset, only the purchase date is entered, and the application will calculate the expiry date based on the category of the asset. An asset must belong to a category. List of all active assets is shown with assets that have past their <i>End of life</i> date in red. Assets <b>cannot</b> be deleted, ony deactivated. Reason for this is historical financial functionality, otherwise it will affect the correctnes of reports. Assets can be reactivated under the <i>Admin</i> menu.</td>
+                </tr>
+                <tr>
+
+                    <td class="font-weight-bold">Categories</td>
+                    <td>The Categories are used to categorise the assets into functional groups and to determine the Lifespan of a corresponding asset. Any number of categories can be added to the application. <b>**NOTE:</b> The Lifespan duration is entered in months. Categories are mainly deactivated, not deleted. However, under the <i>Admin</i> menu the possibility to permanently delete a category is available. Upon deleting and before executing the delete commant, the application will perform a check too make sure that no assets are connected to that category. If any attached assets are found, the delete action will not be executed.</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Currencies</td>
+                    <td>Currencies for different office locations and countries. Currencies are entered in relation to the US Dollar, i.e. how many of the local currencie goes to a Dollar. <i>Ex: 8,80 Swedish Krona to a US Dollar.</i> <b>**Note:</b> All values are entered in <b class="text-danger"><i>cents</i></b> ex: 880 = 8,80 | 90 = 0,90 etc.. This is a work-around for the .NET Core's inability to handle and validate comma as decimal separator</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Offices</td>
+                    <td>...</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Reports</td>
+                    <td>
+                        <b><i>Reporting functions</i></b>
+                        <ul>
+                            <li><b>Dashboard Assets</b> Dashboard for asset values per office with graphs.</li>
+                            <li><br /></li>
+                            <li><b>Dashboard Categories</b> Dashboard for category values with graphs.</li>
+                            <li><br /></li>
+                            <li><b>Show expired assets</b> List of expired assets for all offices with approximate cost of replacement, based on the purchase price.</li>
+                            <li><br /></li>
+                            <li><b>Active assets for an office </b> List of all active assets for a selected office, with asset prices converted to local currency. Functionality for choosing between expired only or all will be added.</li>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Admin</td>
+                    <td><b><i>Administrative functions</i></b>
+                        <ul>
+                            <li><b>Recalculate expiration dates</b> In case of database inconsistencies, or if additional data is entered manually into the database-table, there could be incorrect expiration dates for a given asset. To remedy such an inconsistency <i>Recalculate expiration dates</i> function will recalculate new expiration date for <b>all assets</b>, based on the assets purchase date.</li>
+                            <li><br /></li>
+                            <li><b>Inactive assets</b> displays all inactive/deactivated assets, with a possibility to reactivate them. The list of inactive/deactivated assets is kept for historical financial reasons and reporting correctness.</li>
+                            <li><br /></li>
+                            <li><b>Deactivated currencies</b> displays all <i>deactivated</i> currencies with a option to reactivate them</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

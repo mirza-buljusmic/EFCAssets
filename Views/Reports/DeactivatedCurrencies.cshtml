@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EFCAssets.Models.Currency>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<span>deactivated </span><span class="display-4 text-info"> Currencies</span>
+
+<p>
+    <a asp-controller="Home" asp-action="Admin" class="text-info">Back to admin page</a>
+
+</p>
+<table class="table sortable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrensyToUSD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyComment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrencyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrensyToUSD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrencyActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrencyComment)
+                </td>
+                <td>
+                    <a asp-action="ActivateCurrency" asp-route-id="@item.Id" class="text-info">Activate</a>
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

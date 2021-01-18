@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<span class="display-4 text-info">Edit</span><span> asset</span>
 
-<h4>Asset</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,7 +41,7 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AssetActive" /> @Html.DisplayNameFor(model => model.AssetActive)
+                    <input class="form-check-input text-info" asp-for="AssetActive" /> @Html.DisplayNameFor(model => model.AssetActive)
                 </label>
             </div>
             <div class="form-group">
@@ -56,14 +55,14 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="text-info">Back to List</a>
 </div>
 
 @section Scripts {
