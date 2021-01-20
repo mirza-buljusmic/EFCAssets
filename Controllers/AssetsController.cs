@@ -21,7 +21,8 @@ namespace EFCAssets.Controllers
         // GET: Assets
         public async Task<IActionResult> Index()
         {
-            var assetContext = _context.Assets.Include(a => a.Category).Include(a => a.Office);
+            // Select only assets whose category is active
+            var assetContext = _context.Assets.Include(a => a.Category).Include(a => a.Office).Where(a=>a.Category.CategoryActive == true);
             var assetContextSorted = assetContext.OrderBy(x => x.Office.OfficeName).ThenBy(x => x.Category.CategoryName);
 
             ViewData["CategoryId"] = new SelectList(_context.Categories, nameof(Category.CategoryId), nameof(Category.CategoryName));
@@ -225,6 +226,64 @@ namespace EFCAssets.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+        public async Task<IActionResult> DeprRecalc()
+        {
+
+            // Assumption: straight-line depreciation, with 10% salvage value of purchase price
+
+            // Get all the assets
+            var assetContext = _context.Assets.Include(a => a.Category).ToList();
+
+            foreach (var item in assetContext)
+            {
+                // get the lifespan of asset
+                var lifespan = (item.AssetExpirationDate.Year - item.AssetPurchaseDate.Year);
+                // multiplier for acumulative depreciation
+                var deprYearMult = (DateTime.Now.Year - item.AssetPurchaseDate.Year);
+                // salvage value = 10% of purchase price
+                var salvageValue = item.AssetPrice * 0.1m;
+                // yearly depreciation
+                decimal deprYear = decimal.Round((item.AssetPrice * 0.9m) / lifespan, 2);
+                // acumulated depreciation
+                var totalDepr = decimal.Round((deprYear * deprYearMult), 3);
+
+                // If expiration date has passed set value to salvage value (10%)
+                if (item.AssetExpirationDate < DateTime.Today)
+                {
+                    item.AssetValue = salvageValue;
+                }
+                // expiration date has not yet passed
+                else
+                {
+                    if (GetMonthDifference(item.AssetExpirationDate, DateTime.Today) > 4)
+                    {
+                        item.AssetValue = item.AssetPrice - totalDepr;
+                    }
+                    else
+                    {
+                        // if asset value is eq or below yearly depreciation, set to salvage value
+                        if (item.AssetValue <= deprYear)
+                        {
+                            item.AssetValue = salvageValue;
+                        }
+                        else
+                        {
+                            item.AssetValue = item.AssetPrice - totalDepr;
+                        }
+                    }
+                } 
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+        {
+            int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
+            return Math.Abs(monthsApart);
+        }
     }
 }

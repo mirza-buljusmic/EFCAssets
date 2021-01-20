@@ -34,6 +34,20 @@ namespace EFCAssets.Controllers
             ViewBag.ofcList = officeGroup;
 
             return View(officeGroup);
+
+        }   
+        public IActionResult DashboardDeprValue()
+        {
+            var officeGroup = _context.Assets.GroupBy(a => a.Office.OfficeName)
+                .Select(x => new VM_OfcLIst
+                {
+                    OfficeName = x.Key,
+                    AssetSum = x.Sum(y => y.AssetValue)
+                }).ToList();
+
+            ViewBag.ofcList = officeGroup;
+
+            return View(officeGroup);
         }
         
         public IActionResult DashboardCategory()
@@ -43,6 +57,19 @@ namespace EFCAssets.Controllers
                 {
                     CategoryName = x.Key,
                     CategorySum = x.Sum(y => y.AssetPrice)
+                }).ToList();
+            //ViewBag.ofcList = officeGroup;
+
+            return View(categoryGroup);
+        }
+        
+        public IActionResult DashboardDeprCategory()
+        {
+            var categoryGroup = _context.Assets.GroupBy(a => a.Category.CategoryName)
+                .Select(x => new VM_CategorySummary
+                {
+                    CategoryName = x.Key,
+                    CategorySum = x.Sum(y => y.AssetValue)
                 }).ToList();
             //ViewBag.ofcList = officeGroup;
 
@@ -123,12 +150,12 @@ namespace EFCAssets.Controllers
 
         public async Task<IActionResult> OfcActiveLocalCurrency(int id)
         {
-            var assetContext = _context.Assets
+            var assetContext = await _context.Assets
                 .Include(a => a.Category)
                 .Include(b => b.Office)
                     .ThenInclude(c => c.Currency)
                 .Where(a => a.AssetActive == true && a.OfficeId == id)
-                .ToList();
+                .ToListAsync();
 
             var filteredResult = assetContext
                 .Where(x => x.OfficeId == id && x.AssetActive == true)

@@ -17,11 +17,18 @@
 
             // Create our data table.
             var data = google.visualization.arrayToDataTable([
-                ['Category', 'Value'],
+                ['Office', 'Asset value'],
                 @foreach(var item in Model)
                 {
-                    <text>['@item.CategoryName', @Convert.ToInt32(@item.CategorySum)], </text>
+                    <text>['@item.OfficeName', @Convert.ToInt32(@item.AssetSum)], </text>
                 }
+                //['Michael', 5],
+                //['Elisa', 7],
+                //['Robert', 3],
+                //['John', 2],
+                //['Jessica', 6],
+                //['Aaron', 1],
+                //['Margareth', 8]
             ]);
 
             // Create a dashboard.
@@ -33,7 +40,7 @@
                 'controlType': 'NumberRangeFilter',
                 'containerId': 'filter_div',
                 'options': {
-                    'filterColumnLabel': 'Value',
+                    'filterColumnLabel': 'Asset value',
                     'width': 300,
                     'legend': 'top'
                 }
@@ -77,7 +84,7 @@
             // so that the pie chart will only display entries that are let through
             // given the chosen slider range.
             dashboard.bind(donutRangeSlider, [pieChart, barChart, tableChart]);
-
+            
 
             // Draw the dashboard.
             dashboard.draw(data);
@@ -86,7 +93,7 @@
 </head>
 
 <body>
-    <h4 class="display-4 text-center text-info">Categories depreciated value</h4>
+    <h4 class="display-4 text-center text-info">Assets depreciated value</h4>
     <p class="text-center">
         <a asp-action="Index" class="text-info">Back to reports page</a>
 
@@ -94,7 +101,7 @@
     <!--Div that will hold the dashboard-->
     <div id="dashboard_div" class="table-borderless">
         <!--Divs that will hold each control and chart-->
-        <table>
+        <table >
             <tr>
                 <td><div id="filter_div"></div></td>
                 <td></td>

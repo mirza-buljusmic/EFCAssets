@@ -1,6 +1,29 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+.kitchensink {
+    data-toggle ="table";
+    data-search="true";
+    data-search-highlight="true";
+    data-show-columns="true";
+    data-virtual-scroll="false";
+    data-height="700";
+    data-minimum-count-columns="3";
+    data-show-pagination-switch="false";
+    data-pagination="true";
+    data-id-field="id";
+    data-page-list="[10, 25, 50, 100, all]";
+    data-show-footer="false";
+    data-search-align="left";
+    data-buttons-align="left";
+    data-buttons-class="info";
+    data-buttons-prefix="btn-sm btn";
+    table-borderless="true";
+    table-bordered="false";
+    data-sortable="true";
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -89,7 +112,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  background-color:silver;
+  
 }
 .footer {
   position: absolute;

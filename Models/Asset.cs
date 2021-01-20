@@ -22,6 +22,8 @@ namespace EFCAssets.Models
         [Required(ErrorMessage = "Price is required.")]
         [Display(Name ="Price")]
         public decimal AssetPrice { get; set; }
+        [Display(Name ="Value")]
+        public decimal AssetValue { get; set; }
         [Display(Name ="Active")]
         public bool AssetActive { get; set; }
         public int OfficeId { get; set; }

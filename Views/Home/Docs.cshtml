@@ -6,7 +6,7 @@
 <div class="text-left float-right">
    
 </div>
-<h1 class="align-text-bottom display-4 text-info">Documentation</h1>
+<span></span><span class=" display-4 text-info">Documentation</span><br />
 
     <input type="text" id="searchText" onkeyup="searchText()" placeholder="Search text...">
     <div>
@@ -38,7 +38,7 @@
                 <tr>
 
                     <td class="font-weight-bold">Categories</td>
-                    <td>The Categories are used to categorise the assets into functional groups and to determine the Lifespan of a corresponding asset. Any number of categories can be added to the application. <b>**NOTE:</b> The Lifespan duration is entered in months. Categories are mainly deactivated, not deleted. However, under the <i>Admin</i> menu the possibility to permanently delete a category is available. Upon deleting and before executing the delete commant, the application will perform a check too make sure that no assets are connected to that category. If any attached assets are found, the delete action will not be executed.</td>
+                    <td>The Categories are used to categorise the assets into functional groups and to determine the Lifespan of a corresponding asset. Any number of categories can be added to the application. <b>**NOTE:</b> The Lifespan duration is entered in months. Categories are mainly deactivated, not deleted. If a <i>category</i> is deactivated all the assets under that category will not be shown. This is an easy way of hiding a group of assets <b>**NOTE:</b> Activation of deactivated categories is found under the <i>Admin</i> menu</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Currencies</td>
@@ -51,26 +51,33 @@
                 <tr>
                     <td class="font-weight-bold">Reports</td>
                     <td>
-                        <b><i>Reporting functions</i></b>
+                        <b>Reporting functions</b>
                         <ul>
-                            <li><b>Dashboard Assets</b> Dashboard for asset values per office with graphs.</li>
+                            <li><b><i>Dashboard Assets purchase value</i></b> Dashboard for asset values per office with graphs. Based on purchase price values of assets</li>
+                            <li><br /></li><li><b><i>Dashboard Assets depreciated value</i></b> Dashboard for asset values per office with graphs. Based on depreciated values of assets</li>
                             <li><br /></li>
-                            <li><b>Dashboard Categories</b> Dashboard for category values with graphs.</li>
+                            <li><b><i>Dashboard Categories purchase value</i></b> Dashboard for category values with graphs. Based on purchase price values of assets</li>
                             <li><br /></li>
-                            <li><b>Show expired assets</b> List of expired assets for all offices with approximate cost of replacement, based on the purchase price.</li>
+                            <li><b><i>Dashboard Categories depreciated value</i></b> Dashboard for category values with graphs. Based on depreciated values of assets</li>
                             <li><br /></li>
-                            <li><b>Active assets for an office </b> List of all active assets for a selected office, with asset prices converted to local currency. Functionality for choosing between expired only or all will be added.</li>
+                            <li><b><i>Show expired assets</i></b> List of expired assets for all offices with approximate cost of replacement, based on the purchase price.</li>
+                            <li><br /></li>
+                            <li><b><i>Active assets for an office </i></b> List of all active assets for a selected office, with asset prices converted to local currency. Functionality for choosing between expired only or all will be added.</li>
                     </td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Admin</td>
-                    <td><b><i>Administrative functions</i></b>
+                    <td><b>Administrative functions</b>
                         <ul>
-                            <li><b>Recalculate expiration dates</b> In case of database inconsistencies, or if additional data is entered manually into the database-table, there could be incorrect expiration dates for a given asset. To remedy such an inconsistency <i>Recalculate expiration dates</i> function will recalculate new expiration date for <b>all assets</b>, based on the assets purchase date.</li>
+                            <li><b><i>Recalculate expiration dates</i></b> In case of database inconsistencies, or if additional data is entered manually into the database-table, there could be incorrect expiration dates for a given asset. To remedy such an inconsistency <i>Recalculate expiration dates</i> function will recalculate new expiration date for <b>all assets</b>, based on the assets purchase date.</li>
                             <li><br /></li>
-                            <li><b>Inactive assets</b> displays all inactive/deactivated assets, with a possibility to reactivate them. The list of inactive/deactivated assets is kept for historical financial reasons and reporting correctness.</li>
+                            <li><b><i>Recalculate asset depreciation</i></b> Recalculates asset value depreciation based on lifespan and a assumed salvage value of 10% of purchase price.</li>
                             <li><br /></li>
-                            <li><b>Deactivated currencies</b> displays all <i>deactivated</i> currencies with a option to reactivate them</li>
+                            <li><b><i>Deactivated assets</i></b> displays all inactive/deactivated assets, with a possibility to reactivate them. The list of inactive/deactivated assets is kept for historical financial reasons and reporting correctness.</li>
+                            <li><br /></li>
+                            <li><b><i>Deactivated currencies</i></b> displays all <i>deactivated</i> currencies with a option to reactivate them</li>
+                            <li><b><i>Deactivated categories</i></b> displays all <i>deactivated</i> categories with a option to reactivate them</li>
+                            <li><b><i>Deactivated offices</i></b> displays all <i>deactivated</i> regional offices with a option to reactivate them</li>
                         </ul>
                     </td>
                 </tr>
